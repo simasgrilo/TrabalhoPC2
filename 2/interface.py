@@ -22,12 +22,14 @@ class Window(Frame):
         ents = self.__make_form__(self.master, fields)
         # creating a button instance
         Button(self, text="Sobre", command=self.__about__).pack(side=RIGHT)
+        Button(self, text="Condição de Estabilidade", \
+	command=(lambda e=ents: self.__condizilla__(e))).pack(side=RIGHT)
         Button(self, text="Executar", \
         command=(lambda e=ents: self.__fetch__(e))).pack(side=RIGHT)
         Button(root, text='Quit', command=root.quit).pack(side=RIGHT)
     
     def __about__(self):
-        messagebox.showinfo("init_window","Grupo:\nErick Grilo, Max Fratane,\nVitor Araujo, Vítor Lourenço")
+        messagebox.showinfo("Sobre","Grupo:\nErick Grilo, Max Fratane,\nVitor Araujo, Vítor Lourenço")
         
     def __make_form__(self, root, fields):
         entries = []
@@ -41,7 +43,16 @@ class Window(Frame):
             entries.append((field, ent))
 
         return entries
-
+        
+    def __condizilla__(self, ents):
+        quisif = int(ents[1][1].get())*float(ents[3][1].get())/float(ents[2][1].get())*float(ents[2][1].get())
+        if(quisif < 0.5):
+            messagebox.showinfo("Condição de Estabilidade", str(quisif) + " estabiliza")
+            print(str(quisif) + " estabiliza")
+        else:
+            messagebox.showinfo("Condição de Estabilidade", str(quisif) + " não estabiliza")
+            print(str(quisif) + " não estabiliza")
+        
     def __fetch__(self, ents):
         #qdt_time, c, dx, dt
         

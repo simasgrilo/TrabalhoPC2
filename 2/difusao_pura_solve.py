@@ -63,13 +63,13 @@ class Calculator:
         for n in range(nt):          # loop no tempo
             #print(n)		      #número de espaços de tempo avaliados
             for i in range(1,nx):     # loop no espaço
-                u[new,i] = u[new,i] = u[old,i] + psi*(u[old,i+1] - 2*u[old,i] + u[old,i-1]) #uk+1 i = uk i + psi* (uk i+1 -2uk i + uk i-1)
+                u[new,i] = u[old,i] + psi*(u[old,i+1] - 2*u[old,i] + u[old,i-1]) #uk+1 i = uk i + psi* (uk i+1 -2uk i + uk i-1)
             u[new,0] = 0.0            # condição de contorno, x = 0
             u[new,nx] = 0.0           # condição de contorno, x = 1
             u[new].tofile(fou)        # imprime uma linha com os novos dados
             if(ten2ten%((X_AXIS.shape[0]-1)*QDT_TIME) == 0):
                 print(u[new])
-                plt.plot(X_AXIS, u[new], next(color)+'o')
+                plt.plot(X_AXIS, u[new], next(color)+'-')
             ten2ten += 1
             (old,new) = (new,old)     # troca os índices
         fou.close()
