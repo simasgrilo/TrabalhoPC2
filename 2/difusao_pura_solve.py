@@ -12,6 +12,7 @@ from __future__ import print_function
 from __future__ import division
 from itertools import cycle
 import numpy as np, matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 
 class Calculator:
     def careless_whispers(QDT_TIME = 10, C = 2.0, dx = 0.1, dt = 0.001):
@@ -19,7 +20,8 @@ class Calculator:
 
         L_BOUND = 0.
         U_BOUND = 1.
-
+        LEGEND_PATCHES = []        
+        
         color = cycle('bgrcmy')
 
         X_AXIS = np.arange(L_BOUND,U_BOUND+dx,dx)
@@ -31,6 +33,8 @@ class Calculator:
 
         nx = int(round(1.0/dx,0))     # número de pontos em x
         nt = int(round(1.0/dt,0))     # número de pontos em t
+        
+        time_interval = int(nt/QDT_TIME)
 
         print('#nx=%9d'% nx)
         print('#nt=%9d'% nt)
@@ -51,6 +55,7 @@ class Calculator:
         print(u[0])
         print(u[0].shape, X_AXIS.shape)
         plt.plot(X_AXIS, u[0], 'ko')
+        LEGEND_PATCHES.append(mpatches.Patch(color='black', label="CI"))
         plt.title("Difusão Pura")
         plt.ylabel('u(x,t)')
         plt.xlabel('x')
@@ -67,12 +72,16 @@ class Calculator:
             u[new,0] = 0.0            # condição de contorno, x = 0
             u[new,nx] = 0.0           # condição de contorno, x = 1
             u[new].tofile(fou)        # imprime uma linha com os novos dados
-            if(ten2ten%((X_AXIS.shape[0]-1)*QDT_TIME) == 0):
+            if(ten2ten%time_interval == 0):
                 print(u[new])
-                plt.plot(X_AXIS, u[new], next(color)+'-')
+                c = next(color)
+                plt.plot(X_AXIS, u[new], c+'-')
+                LEGEND_PATCHES.append(mpatches.Patch(color=c, label="t = " + str(round(n*dt, 2))))
             ten2ten += 1
             (old,new) = (new,old)     # troca os índices
         fou.close()
+        
+        plt.legend(handles=LEGEND_PATCHES)
         plt.show()
     
 #careless_whispers()
