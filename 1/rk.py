@@ -101,7 +101,13 @@ class Calculator:
             rk = Runge_Kutta.solver(order, t_min, t_max, partition, r, \
             Calculator.__vdp_osccilation__, mu, amplitude, omega)
             results.append(rk)
-
+            #out = open("results-rk-order"+str(order)+".txt",'wt')
+            #out.write("Condição Inicial em x")
+            #for i in len(x0):
+            #    out.write("x" + str(i) + x0[i])
+            #out.close()		
+                
+       # print(len(results))
         Calculator.__plot__(len(results), *results)
 
     def __plot__(qtd, *args):
@@ -127,8 +133,8 @@ class Calculator:
 
             v_min = min(np.amin(args[i][2]), v_min)
             v_max = max(np.amax(args[i][2]), v_max)
-            
-            patches.append(mpatches.Patch(color=color[i + 1], label=str(i+1) + 'ª eq. selecionada'))
+            #existe um bug na linha abaixo:
+            patches.append(mpatches.Patch(color=color[i + 1], label= 'Runge-Kutta de ' + str(i+1) + 'ª ordem' ))
             
             # plot displacement vs time
             plt.figure(1)

@@ -29,7 +29,7 @@ class Window(Frame):
         Button(root, text='Quit', command=root.quit).pack(side=RIGHT)
     
     def __about__(self):
-        messagebox.showinfo("Sobre","Grupo:\nErick Grilo, Max Fratane,\nVitor Araujo, Vítor Lourenço")
+        messagebox.showinfo("Sobre","Grupo:\nErick Grilo, Max Fratane,\nVitor Araujo, Vítor Lourenço\nPeríodo: 2017.2")
         
     def __make_form__(self, root, fields):
         entries = []
@@ -45,7 +45,14 @@ class Window(Frame):
         return entries
         
     def __condizilla__(self, ents):
-        quisif = int(ents[1][1].get())*float(ents[3][1].get())/float(ents[2][1].get())*float(ents[2][1].get())
+        #calculo de psi estava bugado, foi consertado
+        quisif = (float(ents[1][1].get())*float(ents[3][1].get()))
+        dx2 = float(float(ents[2][1].get())*float(ents[2][1].get()))
+        quisif = quisif/dx2
+        print(float(ents[2][1].get())*float(ents[2][1].get()))
+        print(ents[1][1].get())
+        print(ents[3][1].get())
+        print(ents[2][1].get())
         if(quisif < 0.5):
             messagebox.showinfo("Condição de Estabilidade", str(quisif) + " estabiliza")
             print(str(quisif) + " estabiliza")
@@ -55,7 +62,7 @@ class Window(Frame):
         
     def __fetch__(self, ents):
         #qdt_time, c, dx, dt
-        
+        #existe um bug interessante que se você quiser executar novamente sem fechar o programa alterando a partição de tempo, ele fala que time_interval é zero
         Calculator.careless_whispers(int(ents[0][1].get()), \
         float(ents[1][1].get()), float(ents[2][1].get()), float(ents[3][1].get()))
 

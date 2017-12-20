@@ -41,7 +41,7 @@ class Window(Frame):
         Button(root, text='Quit', command=root.quit).pack(side=RIGHT)
     
     def __about__(self):
-        messagebox.showinfo("Grupo","Grupo:\nErick Grilo, Max Fratane,\nVitor Araujo, Vítor Lourenço")
+        messagebox.showinfo("Grupo","Grupo:\nErick Grilo, Max Fratane,\nVitor Araujo, Vítor Lourenço \nPeríodo: 2017.2")
         
     def __tableau__(self):
         novi = Toplevel()

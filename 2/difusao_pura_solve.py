@@ -14,6 +14,7 @@ from itertools import cycle
 import numpy as np, matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
+
 class Calculator:
     def careless_whispers(QDT_TIME = 10, C = 2.0, dx = 0.1, dt = 0.001):
         fou = open('difusao1d-exp.potato','wt')
@@ -52,6 +53,7 @@ class Calculator:
             u[0,i] = CI(xi)
 
         u[0].tofile(fou)              # imprime a condição inicial
+        #fou.write(u[0])
         print(u[0])
         print(u[0].shape, X_AXIS.shape)
         plt.plot(X_AXIS, u[0], 'ko')
@@ -79,7 +81,35 @@ class Calculator:
                 LEGEND_PATCHES.append(mpatches.Patch(color=c, label="t = " + str(round(n*dt, 2))))
             ten2ten += 1
             (old,new) = (new,old)     # troca os índices
-        fou.close()
+        
+
+        #from numpy import fromfile
+
+        #u = fromfile(fou,float,nx+1)  # lê a condição inicial
+        #fou.close()
+        #v = [u]                       # inicializa a lista da "transposta"
+        #for it in range(nx):           # para <m> instantes:
+        #   for ir in range(nt):        # lê <ir> vezes, só guarda a última
+        #        u = fromfile(fou,float,nx+1)
+        #        v.append(u)                # guarda a última. originalmente esse v tava fora do for mais interno, mas não funciona.
+        #founam ='divisao1d-exp.txt'
+        #out = open(founam,'wt')       # abre o arquivo de saída
+     #print(v[1][0])
+     #print(len(v[1]))
+
+
+        #for i in range(nx+1): #xi
+        #   out.write('%10.6f'% (i*dx))    # escreve o "xi"
+        #   out.write('%10.6f'% v[0][i])   # escreve a cond inicial
+        #fou.write("aaa" + str( i))
+        #   for k in range(1,m+2): #tempo
+               #print(k)
+               #print(i)
+               #print(v[k][i])
+        #       out.write('%10.6f'% v[k][i])# escreve o k-ésimo
+        #   out.write('\n')
+        #out.close()
+
         
         plt.legend(handles=LEGEND_PATCHES)
         plt.show()
